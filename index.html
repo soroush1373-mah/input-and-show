@@ -55,34 +55,30 @@
       function showInputValue() {
         //get inputs
         const texts = document.getElementsByClassName("col-5");
-        const indexInput = document.getElementById("inputIndex");
         const show = document.getElementById("showIndex");
-        const index = parseInt(indexInput.value);
+        const index = document.getElementById("inputIndex");
         //put it in the array
         const inputArrays = Array.from(texts);
         //cheak index is valid
-        if (isNaN(index) || index < 1 || index > inputArrays.length) {
+        if (index.value === "") {
           alert("please enter a valid index between 1 and 10");
-          indexInput.value = "";
           return;
         }
 
         //cheak if all inputs are filled using foreach
         let hasEmpty = false;
-        inputArrays.forEach((input) => {
-          if (input.value.trim() === "") {
+        inputArrays.forEach((item) => {
+          if (item.value.trim() === "") {
             hasEmpty = true;
           }
         });
         if (hasEmpty) {
           alert("please fill all input fields");
-          indexInput.value = "";
           return;
         }
         //show the index input
-        show.value = inputArrays[index - 1].value;
+        show.value = index.value;
         //clear index
-        indexInput.value = "";
       }
     </script>
   </body>
