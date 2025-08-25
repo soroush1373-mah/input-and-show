@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>input&index</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style>
+    input {
+      padding: 10px;
+      text-align: center;
+      margin: 10px;
+      border-radius: 20px;
+    }
+  </style>
+  <body>
+    <div class="container w-50 bg-secondary mt-5 rounded-4">
+      <h1 class="text-center p-3">show the input</h1>
+      <input type="text" class="col-5" placeholder="text&number1" />
+      <input type="text" class="col-5" placeholder="text&number2" />
+      <input type="text" class="col-5" placeholder="text&number3" />
+      <input type="text" class="col-5" placeholder="text&number4" />
+      <input type="text" class="col-5" placeholder="text&number5" />
+      <input type="text" class="col-5" placeholder="text&number6" />
+      <input type="text" class="col-5" placeholder="text&number7" />
+      <input type="text" class="col-5" placeholder="text&number8" />
+      <input type="text" class="col-5" placeholder="text&number9" />
+      <input type="text" class="col-5" placeholder="text&number10" />
+      <input
+        type="number"
+        class="col-10 w-50 m-4"
+        placeholder="write the index"
+        id="inputIndex"
+      />
+      <button
+        onclick="showInputValue()"
+        class="btn btn-outline-primary text-black border-black mt-5"
+      >
+        search the input
+      </button>
+      <input
+        type="text"
+        id="showIndex"
+        class="col-10 w-50 m-4"
+        placeholder="show the input"
+      />
+    </div>
+    <script>
+      function showInputValue() {
+        //get inputs
+        const texts = document.getElementsByClassName("col-5");
+        const indexInput = document.getElementById("inputIndex");
+        const show = document.getElementById("showIndex");
+        const index = parseInt(indexInput.value);
+        //put it in the array
+        const inputArrays = Array.from(texts);
+        //cheak index is valid
+        if (isNaN(index) || index < 1 || index > inputArrays.length) {
+          alert("please enter a valid index between 1 and 10");
+          indexInput.value = "";
+          return;
+        }
+
+        //cheak if all inputs are filled using foreach
+        let hasEmpty = false;
+        inputArrays.forEach((input) => {
+          if (input.value.trim() === "") {
+            hasEmpty = true;
+          }
+        });
+        if (hasEmpty) {
+          alert("please fill all input fields");
+          indexInput.value = "";
+          return;
+        }
+        //show the index input
+        show.value = inputArrays[index - 1].value;
+        //clear index
+        indexInput.value = "";
+      }
+    </script>
+  </body>
+</html>
