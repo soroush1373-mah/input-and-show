@@ -20,7 +20,7 @@
     }
   </style>
   <body>
-    <div id="creatdiv" class="container w-50 bg-secondary mt-5 rounded-4">
+    <div class="container w-50 bg-secondary mt-5 rounded-4">
       <h1 class="text-center p-3">show the input</h1>
       <input type="text" class="col-5" placeholder="text&number1" />
       <input type="text" class="col-5" placeholder="text&number2" />
@@ -39,50 +39,47 @@
         id="inputIndex"
       />
       <button
-        onclick="showInputAvailable()"
+        onclick="showInputValue()"
         class="btn btn-outline-primary text-black border-black mt-5"
       >
         search the input
       </button>
     </div>
     <script>
-      function showInputAvailable() {
+      function showInputValue() {
         //get inputs
         const texts = document.getElementsByClassName("col-5");
-        const inputAvailable = document
-          .getElementById("inputIndex")
-          .value.trim();
-
+        const inputAvailable = document.getElementById("inputIndex");
         //put it in the array
         const inputArrays = Array.from(texts);
+        //cheak all inputs are filled
+        for (let i = 0; i < inputArrays.length; i++) {
+          if (inputArrays[i].value.trim() === "") {
+            alert("please fill all inputs");
+            document.getElementById("inputIndex").value = "";
+            return;
+          }
+        }
+        const searchValue = inputAvailable.value.trim();
 
-        //cheak if all inputs are filled using foreach
-        if (inputArrays.some((input) => input.value.trim() === "")) {
-          alert("please fill all input field");
+        if (searchValue === "") {
+          alert("please enter a value to search");
           return;
         }
-        if (inputAvailable === "") {
-          alert("please enter value for search");
-          return;
+        //cheak if value exits in any input using for loop
+        let found = false;
+        for (let i = 0; i < inputArrays.length; i++) {
+          if (inputArrays[i].value.trim() === searchValue) {
+            found = true;
+            break; //stop loop when found
+          }
         }
-        const matches = inputArrays
-          .map((input, i) =>
-            input.value.trim() === inputAvailable ? i + 1 : null
-          )
-          .filter((i) => i !== null);
-        if (matches.length > 0) {
-          alert("input found at positions" + matches.join(", "));
-
-          //creat new input and show the index
-          const newInput = document.createElement("input");
-          newInput.value = `number is : ${matches.join(", ")}`;
-          newInput.className = "col-10 w-50 m-4";
-          document.getElementById("creatdiv").appendChild(newInput);
+        if (found) {
+          alert("this input is in the field");
         } else {
-          alert("input is NOT in field");
+          alert("this input is NOT in the field");
         }
-
-        //clear the search input after cheak
+        //clear the search input
         document.getElementById("inputIndex").value = "";
       }
     </script>
