@@ -65,14 +65,17 @@
           alert("please enter value for search");
           return;
         }
-        const index = inputArrays.findIndex(
-          (input) => input.value.trim() === inputAvailable
-        );
-        if (index !== -1) {
-          alert("input is  in field");
+        const matches = inputArrays
+          .map((input, i) =>
+            input.value.trim() === inputAvailable ? i + 1 : null
+          )
+          .filter((i) => i !== null);
+        if (matches.length > 0) {
+          alert("input found at positions" + matches.join(", "));
+
           //creat new input and show the index
           const newInput = document.createElement("input");
-          newInput.value = `number is : ${index + 1}`;
+          newInput.value = `number is : ${matches.join(", ")}`;
           newInput.className = "col-10 w-50 m-4";
           document.getElementById("creatdiv").appendChild(newInput);
         } else {
