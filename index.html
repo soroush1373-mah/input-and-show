@@ -50,37 +50,39 @@
         //get inputs
         const texts = document.getElementsByClassName("col-5");
         const inputAvailable = document.getElementById("inputIndex");
+        const searchValue = inputAvailable.value.trim();
         //put it in the array
         const inputArrays = Array.from(texts);
         //cheak all inputs are filled
-        for (let i = 0; i < inputArrays.length; i++) {
-          if (inputArrays[i].value.trim() === "") {
-            alert("please fill all inputs");
-            document.getElementById("inputIndex").value = "";
-            return;
-          }
-        }
-        const searchValue = inputAvailable.value.trim();
 
-        if (searchValue === "") {
-          alert("please enter a value to search");
+        let hasEmpty = false;
+        inputArrays.forEach((input) => {
+          if (input.value.trim() === "") {
+            hasEmpty = true;
+          }
+        });
+        if (hasEmpty) {
+          alert("please fill all inputs");
+          inputAvailable.value = "";
           return;
         }
-        //cheak if value exits in any input using for loop
-        let found = false;
-        for (let i = 0; i < inputArrays.length; i++) {
-          if (inputArrays[i].value.trim() === searchValue) {
-            found = true;
-            break; //stop loop when found
-          }
+        if (searchValue === "") {
+          alert("please enter a value for search");
+          return;
         }
+        //cheak if value exist using for each
+        let found = false;
+        inputArrays.forEach((input) => {
+          if (input.value.trim() === searchValue) {
+            found = true;
+          }
+        });
         if (found) {
           alert("this input is in the field");
         } else {
           alert("this input is NOT in the field");
         }
-        //clear the search input
-        document.getElementById("inputIndex").value = "";
+        inputAvailable.value = "";
       }
     </script>
   </body>
