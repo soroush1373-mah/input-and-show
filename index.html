@@ -49,7 +49,9 @@
       function showInputAvailable() {
         //get inputs
         const texts = document.getElementsByClassName("col-5");
-        const inputAvailable = document.getElementById("inputIndex");
+        const inputAvailable = document
+          .getElementById("inputIndex")
+          .value.trim();
         //put it in the array
         const inputArrays = Array.from(texts);
 
@@ -64,14 +66,16 @@
           alert("please fill all input fields");
           return;
         }
-        const available = inputArrays.textcontent;
-        if (isNaN(inputAvailable) || inputAvailable != available.textcontent) {
-          alert("input is not in field");
-          return;
+        let found = inputArrays.some(
+          (input) => input.value.trim() === inputAvailable
+        );
+        if (found) {
+          alert("input is  in field");
         } else {
-          inputAvailable.textcontent = inputArrays.textcontent;
-          alert("input is in field");
+          alert("input is NOT in field");
         }
+        //clear the search input after cheak
+        document.getElementById("inputIndex").value = "";
       }
     </script>
   </body>
