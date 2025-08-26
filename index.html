@@ -39,27 +39,19 @@
         id="inputIndex"
       />
       <button
-        onclick="showInputValue()"
+        onclick="showInputAvailable()"
         class="btn btn-outline-primary text-black border-black mt-5"
       >
         search the input
       </button>
     </div>
     <script>
-      function showInputValue() {
+      function showInputAvailable() {
         //get inputs
         const texts = document.getElementsByClassName("col-5");
-        const indexInput = document.getElementById("inputIndex");
-        const container = document.getElementById("creatdiv");
-        const index = parseInt(indexInput.value);
+        const inputAvailable = document.getElementById("inputIndex");
         //put it in the array
         const inputArrays = Array.from(texts);
-        //cheak index is valid
-        if (isNaN(index) || index < 1 || index > inputArrays.length) {
-          alert("please enter a valid index between 1 and 10");
-          indexInput.value = "";
-          return;
-        }
 
         //cheak if all inputs are filled using foreach
         let hasEmpty = false;
@@ -70,19 +62,16 @@
         });
         if (hasEmpty) {
           alert("please fill all input fields");
-          indexInput.value = "";
           return;
         }
-        //creat new input for showing result
-        const newInput = document.createElement("input");
-        newInput.type = "text";
-        newInput.className = "col-10 m-2";
-        newInput.value = inputArrays[index - 1].value;
-        newInput.readOnly = true;
-        //show the index input
-        container.appendChild(newInput);
-        //clear index
-        indexInput.value = "";
+        const available = inputArrays.textcontent;
+        if (isNaN(inputAvailable) || inputAvailable != available.textcontent) {
+          alert("input is not in field");
+          return;
+        } else {
+          inputAvailable.textcontent = inputArrays.textcontent;
+          alert("input is in field");
+        }
       }
     </script>
   </body>
