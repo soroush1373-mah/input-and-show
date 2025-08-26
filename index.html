@@ -52,28 +52,33 @@
         const inputAvailable = document
           .getElementById("inputIndex")
           .value.trim();
+
         //put it in the array
         const inputArrays = Array.from(texts);
 
         //cheak if all inputs are filled using foreach
-        let hasEmpty = false;
-        inputArrays.forEach((input) => {
-          if (input.value.trim() === "") {
-            hasEmpty = true;
-          }
-        });
-        if (hasEmpty) {
-          alert("please fill all input fields");
+        if (inputArrays.some((input) => input.value.trim() === "")) {
+          alert("please fill all input field");
           return;
         }
-        let found = inputArrays.some(
+        if (inputAvailable === "") {
+          alert("please enter value for search");
+          return;
+        }
+        const index = inputArrays.findIndex(
           (input) => input.value.trim() === inputAvailable
         );
-        if (found) {
+        if (index !== -1) {
           alert("input is  in field");
+          //creat new input and show the index
+          const newInput = document.createElement("input");
+          newInput.value = `number is : ${index + 1}`;
+          newInput.className = "col-10 w-50 m-4";
+          document.getElementById("creatdiv").appendChild(newInput);
         } else {
           alert("input is NOT in field");
         }
+
         //clear the search input after cheak
         document.getElementById("inputIndex").value = "";
       }
